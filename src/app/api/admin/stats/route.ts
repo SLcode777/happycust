@@ -17,10 +17,12 @@ export async function GET() {
       )
     }
 
+    const userId = session.user.id
+
     const sevenDaysAgo = new Date()
     sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7)
 
-    // Get total counts
+    // Get total counts - ONLY for projects owned by the current user
     const [
       feedbacks,
       reviews,
@@ -35,33 +37,65 @@ export async function GET() {
       unpublishedReviews,
       newFeedbacks,
     ] = await Promise.all([
-      db.feedback.count(),
-      db.review.count(),
-      db.issue.count(),
-      db.featureRequest.count(),
       db.feedback.count({
-        where: { createdAt: { gte: sevenDaysAgo } },
+        where: { project: { userId } },
       }),
       db.review.count({
-        where: { createdAt: { gte: sevenDaysAgo } },
+        where: { project: { userId } },
       }),
       db.issue.count({
-        where: { createdAt: { gte: sevenDaysAgo } },
+        where: { project: { userId } },
       }),
       db.featureRequest.count({
-        where: { createdAt: { gte: sevenDaysAgo } },
-      }),
-      db.featureRequest.count({
-        where: { status: "NEW" },
-      }),
-      db.issue.count({
-        where: { status: { in: ["NEW", "IN_PROGRESS"] } },
-      }),
-      db.review.count({
-        where: { isPublished: false },
+        where: { project: { userId } },
       }),
       db.feedback.count({
-        where: { status: "NEW" },
+        where: {
+          project: { userId },
+          createdAt: { gte: sevenDaysAgo },
+        },
+      }),
+      db.review.count({
+        where: {
+          project: { userId },
+          createdAt: { gte: sevenDaysAgo },
+        },
+      }),
+      db.issue.count({
+        where: {
+          project: { userId },
+          createdAt: { gte: sevenDaysAgo },
+        },
+      }),
+      db.featureRequest.count({
+        where: {
+          project: { userId },
+          createdAt: { gte: sevenDaysAgo },
+        },
+      }),
+      db.featureRequest.count({
+        where: {
+          project: { userId },
+          status: "NEW",
+        },
+      }),
+      db.issue.count({
+        where: {
+          project: { userId },
+          status: { in: ["NEW", "IN_PROGRESS"] },
+        },
+      }),
+      db.review.count({
+        where: {
+          project: { userId },
+          isPublished: false,
+        },
+      }),
+      db.feedback.count({
+        where: {
+          project: { userId },
+          status: "NEW",
+        },
       }),
     ])
 

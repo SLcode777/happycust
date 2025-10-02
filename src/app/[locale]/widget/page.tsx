@@ -2,8 +2,9 @@
 
 import { useSearchParams } from "next/navigation"
 import { FeedbackWidget } from "@/components/widget/feedback-widget"
+import { Suspense } from "react"
 
-export default function WidgetPage() {
+function WidgetContent() {
   const searchParams = useSearchParams()
   const projectId = searchParams.get("projectId")
 
@@ -22,5 +23,13 @@ export default function WidgetPage() {
     <div className="min-h-screen bg-transparent">
       <FeedbackWidget projectId={projectId} embedded />
     </div>
+  )
+}
+
+export default function WidgetPage() {
+  return (
+    <Suspense fallback={<div className="flex items-center justify-center min-h-screen">Loading...</div>}>
+      <WidgetContent />
+    </Suspense>
   )
 }

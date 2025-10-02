@@ -81,7 +81,7 @@ export default function IssuesPage() {
             <SelectItem value="NEW">New</SelectItem>
             <SelectItem value="IN_PROGRESS">In Progress</SelectItem>
             <SelectItem value="RESOLVED">Resolved</SelectItem>
-            <SelectItem value="WONT_FIX">Won't Fix</SelectItem>
+            <SelectItem value="WONT_FIX">Won&apos;t Fix</SelectItem>
             <SelectItem value="ARCHIVED">Archived</SelectItem>
           </SelectContent>
         </Select>
@@ -121,7 +121,7 @@ export default function IssuesPage() {
                           <SelectItem value="NEW">New</SelectItem>
                           <SelectItem value="IN_PROGRESS">In Progress</SelectItem>
                           <SelectItem value="RESOLVED">Resolved</SelectItem>
-                          <SelectItem value="WONT_FIX">Won't Fix</SelectItem>
+                          <SelectItem value="WONT_FIX">Won&apos;t Fix</SelectItem>
                           <SelectItem value="ARCHIVED">Archived</SelectItem>
                         </SelectContent>
                       </Select>

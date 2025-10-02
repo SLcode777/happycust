@@ -166,5 +166,67 @@
     "edit": "Edit",
     "close": "Close",
     "back": "Back"
+  },
+  "landing": {
+    "header": {
+      "features": "Features",
+      "pricing": "Pricing",
+      "login": "Login",
+      "getStarted": "Get Started"
+    },
+    "hero": {
+      "title": "Customer Feedback,\nMade Simple",
+      "subtitle": "Collect feedback, reviews, bug reports, and feature requests from your customers. All in one embeddable widget.",
+      "startTrial": "Start Free Trial",
+      "seeDemo": "See Demo"
+    },
+    "features": {
+      "title": "Everything You Need",
+      "subtitle": "One widget, four powerful feedback tools",
+      "simpleFeedback": {
+        "title": "Simple Feedback",
+        "description": "Collect quick feedback from your users effortlessly"
+      },
+      "customerReviews": {
+        "title": "Customer Reviews",
+        "description": "Gather and showcase authentic customer reviews"
+      },
+      "bugReports": {
+        "title": "Bug Reports",
+        "description": "Let users report issues with screenshots"
+      },
+      "featureRequests": {
+        "title": "Feature Requests",
+        "description": "Crowdsource ideas with built-in voting system"
+      }
+    },
+    "benefits": {
+      "title": "Why Choose HappyCust?",
+      "items": {
+        "embeddable": "Embeddable widget for any web application",
+        "dashboard": "Powerful admin dashboard",
+        "multilang": "Multi-language support (EN/FR)",
+        "screenshots": "Upload screenshots for bug reports",
+        "api": "Public API for displaying reviews",
+        "gdpr": "GDPR compliant"
+      }
+    },
+    "demo": {
+      "title": "See It In Action",
+      "subtitle": "Click the feedback button in the bottom right to try our widget",
+      "label": "Interactive Demo",
+      "hint": "Look for the widget button →"
+    },
+    "cta": {
+      "title": "Ready to Listen to Your Customers?",
+      "subtitle": "Join companies that value customer feedback. Start collecting insights today.",
+      "button": "Get Started Free"
+    },
+    "footer": {
+      "login": "Login",
+      "signUp": "Sign Up",
+      "documentation": "Documentation",
+      "copyright": "© {year} HappyCust. All rights reserved."
+    }
   }
 }

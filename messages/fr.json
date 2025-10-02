@@ -166,5 +166,67 @@
     "edit": "Modifier",
     "close": "Fermer",
     "back": "Retour"
+  },
+  "landing": {
+    "header": {
+      "features": "Fonctionnalités",
+      "pricing": "Tarifs",
+      "login": "Connexion",
+      "getStarted": "Commencer"
+    },
+    "hero": {
+      "title": "Retours clients,\nEn toute simplicité",
+      "subtitle": "Collectez les retours, avis, rapports de bugs et suggestions de fonctionnalités de vos clients. Le tout dans un seul widget intégrable.",
+      "startTrial": "Essai gratuit",
+      "seeDemo": "Voir la démo"
+    },
+    "features": {
+      "title": "Tout ce dont vous avez besoin",
+      "subtitle": "Un widget, quatre outils puissants",
+      "simpleFeedback": {
+        "title": "Retours simples",
+        "description": "Collectez rapidement les retours de vos utilisateurs sans effort"
+      },
+      "customerReviews": {
+        "title": "Avis clients",
+        "description": "Recueillez et affichez des avis clients authentiques"
+      },
+      "bugReports": {
+        "title": "Rapports de bugs",
+        "description": "Permettez aux utilisateurs de signaler des problèmes avec captures d'écran"
+      },
+      "featureRequests": {
+        "title": "Suggestions",
+        "description": "Crowdsourcez les idées avec un système de vote intégré"
+      }
+    },
+    "benefits": {
+      "title": "Pourquoi choisir HappyCust ?",
+      "items": {
+        "embeddable": "Widget intégrable dans n'importe quelle application web",
+        "dashboard": "Tableau de bord administrateur puissant",
+        "multilang": "Support multilingue (FR/EN)",
+        "screenshots": "Upload de captures d'écran pour les rapports de bugs",
+        "api": "API publique pour afficher les avis",
+        "gdpr": "Conforme RGPD"
+      }
+    },
+    "demo": {
+      "title": "Voyez-le en action",
+      "subtitle": "Cliquez sur le bouton de feedback en bas à droite pour essayer notre widget",
+      "label": "Démo interactive",
+      "hint": "Cherchez le bouton du widget →"
+    },
+    "cta": {
+      "title": "Prêt à écouter vos clients ?",
+      "subtitle": "Rejoignez les entreprises qui valorisent les retours clients. Commencez à collecter des insights dès aujourd'hui.",
+      "button": "Commencer gratuitement"
+    },
+    "footer": {
+      "login": "Connexion",
+      "signUp": "S'inscrire",
+      "documentation": "Documentation",
+      "copyright": "© {year} HappyCust. Tous droits réservés."
+    }
   }
 }

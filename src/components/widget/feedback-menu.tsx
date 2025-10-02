@@ -16,16 +16,16 @@ export function FeedbackMenu({ onSelect, onClose }: FeedbackMenuProps) {
     {
       id: "feedback" as const,
       label: t("shareFeedback"),
-      icon: Star,
-      bgColor: "bg-yellow-100",
-      iconColor: "text-yellow-600",
+      icon: MessageCircle,
+      bgColor: "bg-blue-100",
+      iconColor: "text-blue-600",
     },
     {
       id: "review" as const,
       label: t("leaveReview"),
-      icon: MessageCircle,
-      bgColor: "bg-blue-100",
-      iconColor: "text-blue-600",
+      icon: Star,
+      bgColor: "bg-yellow-100",
+      iconColor: "text-yellow-600",
     },
     {
       id: "issue" as const,
@@ -45,7 +45,8 @@ export function FeedbackMenu({ onSelect, onClose }: FeedbackMenuProps) {
 
   return (
     <div className="relative">
-      <div className="flex items-center justify-end mb-6">
+      <div className="flex items-center justify-between mb-6">
+        <p className="font-semibold">Améliorons ensemble l&apos;application !</p>
         <button
           onClick={onClose}
           className="rounded-full py-2 opacity-70 hover:opacity-100"

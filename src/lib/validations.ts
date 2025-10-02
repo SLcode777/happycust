@@ -26,7 +26,7 @@ export type ReviewInput = z.infer<typeof reviewSchema>
 // Issue validation
 export const issueSchema = z.object({
   description: z.string().min(1, "Please describe the issue"),
-  screenshotUrl: z.string().url().optional(),
+  screenshotUrl: z.string().url().optional().nullable(),
   name: z.string().optional(),
   email: z.string().email().optional().or(z.literal("")),
   projectId: z.string(),
@@ -57,7 +57,7 @@ export type VoteInput = z.infer<typeof voteSchema>
 // Survey response validation
 export const surveyResponseSchema = z.object({
   surveyId: z.string(),
-  answers: z.record(z.any()),
+  answers: z.record(z.string(), z.any()),
   email: z.string().email().optional().or(z.literal("")),
   name: z.string().optional(),
 })
