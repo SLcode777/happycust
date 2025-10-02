@@ -1,0 +1,279 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// Admin users (Better-auth compatible)
+model User {
+  id            String    @id @default(cuid())
+  email         String    @unique
+  emailVerified Boolean   @default(false)
+  name          String?
+  image         String?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  role          UserRole  @default(ADMIN)
+
+  projects Project[]
+  sessions Session[]
+  accounts Account[]
+}
+
+enum UserRole {
+  ADMIN
+  SUPER_ADMIN
+}
+
+// Better-auth Session model
+model Session {
+  id        String   @id @default(cuid())
+  expiresAt DateTime
+  token     String   @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  ipAddress String?
+  userAgent String?
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+}
+
+// Better-auth Account model
+model Account {
+  id                String   @id @default(cuid())
+  accountId         String
+  providerId        String
+  userId            String
+  user              User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  accessToken       String?
+  refreshToken      String?
+  idToken           String?
+  accessTokenExpiresAt DateTime?
+  refreshTokenExpiresAt DateTime?
+  scope             String?
+  password          String?
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+
+  @@unique([providerId, accountId])
+  @@index([userId])
+}
+
+// Better-auth Verification model
+model Verification {
+  id         String   @id @default(cuid())
+  identifier String
+  value      String
+  expiresAt  DateTime
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@unique([identifier, value])
+}
+
+// Projects/Applications that use HappyCust
+model Project {
+  id           String   @id @default(cuid())
+  name         String
+  slug         String   @unique
+  apiKey       String   @unique @default(cuid())
+  domain       String?
+  language     String   @default("en") // en, fr
+  hideBranding Boolean  @default(false) // Hide "Powered by HappyCust" for premium users
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  userId       String
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  feedbacks       Feedback[]
+  reviews         Review[]
+  issues          Issue[]
+  featureRequests FeatureRequest[]
+  surveys         Survey[]
+}
+
+// General feedback (Share Feedback)
+model Feedback {
+  id        String         @id @default(cuid())
+  content   String
+  email     String?
+  name      String?
+  status    FeedbackStatus @default(NEW)
+  tags      String[]
+  priority  Priority       @default(MEDIUM)
+  createdAt DateTime       @default(now())
+  updatedAt DateTime       @updatedAt
+  projectId String
+  project   Project        @relation(fields: [projectId], references: [id], onDelete: Cascade)
+
+  @@index([projectId, status])
+  @@index([createdAt])
+}
+
+enum FeedbackStatus {
+  NEW
+  IN_PROGRESS
+  RESOLVED
+  ARCHIVED
+}
+
+enum Priority {
+  LOW
+  MEDIUM
+  HIGH
+  URGENT
+}
+
+// Reviews with rating (Leave a Review)
+model Review {
+  id                    String   @id @default(cuid())
+  rating                Int // 1-5 stars
+  content               String
+  email                 String
+  name                  String?
+  socialMediaProfile    String?
+  consentForMarketing   Boolean  @default(false)
+  isPublished           Boolean  @default(false)
+  createdAt             DateTime @default(now())
+  updatedAt             DateTime @updatedAt
+  projectId             String
+  project               Project  @relation(fields: [projectId], references: [id], onDelete: Cascade)
+
+  @@index([projectId, isPublished])
+  @@index([rating])
+  @@index([createdAt])
+}
+
+// Bug reports (Report an Issue)
+model Issue {
+  id           String       @id @default(cuid())
+  description  String
+  screenshotUrl String?
+  name         String?
+  email        String?
+  status       IssueStatus  @default(NEW)
+  tags         String[]
+  priority     Priority     @default(MEDIUM)
+  createdAt    DateTime     @default(now())
+  updatedAt    DateTime     @updatedAt
+  projectId    String
+  project      Project      @relation(fields: [projectId], references: [id], onDelete: Cascade)
+
+  @@index([projectId, status])
+  @@index([createdAt])
+}
+
+enum IssueStatus {
+  NEW
+  IN_PROGRESS
+  RESOLVED
+  WONT_FIX
+  ARCHIVED
+}
+
+// Feature requests (Request a Feature)
+model FeatureRequest {
+  id          String               @id @default(cuid())
+  title       String
+  description String
+  status      FeatureRequestStatus @default(NEW)
+  tags        String[]
+  priority    Priority             @default(MEDIUM)
+  email       String?
+  name        String?
+  createdAt   DateTime             @default(now())
+  updatedAt   DateTime             @updatedAt
+  projectId   String
+  project     Project              @relation(fields: [projectId], references: [id], onDelete: Cascade)
+
+  votes       Vote[]
+
+  @@index([projectId, status])
+  @@index([createdAt])
+}
+
+enum FeatureRequestStatus {
+  NEW
+  UNDER_CONSIDERATION
+  PLANNED
+  IN_PROGRESS
+  COMPLETED
+  REJECTED
+  ARCHIVED
+}
+
+// Votes for feature requests
+model Vote {
+  id               String         @id @default(cuid())
+  email            String?
+  fingerprint      String // Browser fingerprint to prevent duplicate votes
+  createdAt        DateTime       @default(now())
+  featureRequestId String
+  featureRequest   FeatureRequest @relation(fields: [featureRequestId], references: [id], onDelete: Cascade)
+
+  @@unique([featureRequestId, fingerprint])
+  @@index([featureRequestId])
+}
+
+// Surveys (enquêtes)
+model Survey {
+  id          String          @id @default(cuid())
+  title       String
+  description String?
+  isActive    Boolean         @default(true)
+  createdAt   DateTime        @default(now())
+  updatedAt   DateTime        @updatedAt
+  projectId   String
+  project     Project         @relation(fields: [projectId], references: [id], onDelete: Cascade)
+
+  questions   SurveyQuestion[]
+  responses   SurveyResponse[]
+
+  @@index([projectId, isActive])
+}
+
+// Survey questions
+model SurveyQuestion {
+  id           String       @id @default(cuid())
+  question     String
+  type         QuestionType
+  required     Boolean      @default(false)
+  options      String[] // For multiple choice questions
+  order        Int
+  surveyId     String
+  survey       Survey       @relation(fields: [surveyId], references: [id], onDelete: Cascade)
+
+  @@index([surveyId])
+}
+
+enum QuestionType {
+  TEXT
+  TEXTAREA
+  MULTIPLE_CHOICE
+  RATING
+}
+
+// Survey responses
+model SurveyResponse {
+  id        String   @id @default(cuid())
+  answers   Json // {"questionId": "answer"}
+  email     String?
+  name      String?
+  createdAt DateTime @default(now())
+  surveyId  String
+  survey    Survey   @relation(fields: [surveyId], references: [id], onDelete: Cascade)
+
+  @@index([surveyId])
+  @@index([createdAt])
+}

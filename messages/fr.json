@@ -1,0 +1,170 @@
+{
+  "widget": {
+    "trigger": "Améliorer l'expérience",
+    "menu": {
+      "shareFeedback": "Partager votre expérience",
+      "leaveReview": "Donner votre avis",
+      "reportIssue": "Signaler un problème",
+      "requestFeature": "Suggérer une fonctionnalité"
+    },
+    "feedback": {
+      "title": "Partager votre expérience",
+      "placeholder": "Parlez-nous de votre expérience (optionnel)",
+      "submit": "Envoyer",
+      "successMessage": "Retour envoyé avec succès !"
+    },
+    "review": {
+      "title": "Donner votre avis",
+      "overallRating": "Note globale",
+      "shareExperience": "Partagez votre expérience (Requis)",
+      "sharePlaceholder": "Dites-nous ce que vous pensez...",
+      "email": "Votre Email (Requis)",
+      "emailPlaceholder": "votre.email@exemple.com",
+      "emailNote": "Votre email ne sera pas affiché publiquement",
+      "name": "Votre Nom (Optionnel)",
+      "namePlaceholder": "Entrez votre nom",
+      "socialMedia": "Profil Réseau Social (Optionnel)",
+      "socialMediaPlaceholder": "https://twitter.com/votrenom",
+      "consent": "J'accepte que mon avis puisse être utilisé publiquement pour le marketing ou les témoignages.",
+      "continue": "Continuer",
+      "successMessage": "Avis envoyé avec succès !"
+    },
+    "issue": {
+      "title": "Signaler un problème",
+      "description": "Description du problème (Requis)",
+      "descriptionPlaceholder": "Veuillez décrire le bug que vous avez rencontré...",
+      "screenshot": "Capture d'écran (Optionnel, Max 5MB)",
+      "captureScreenshot": "Capturer l'écran",
+      "attachFile": "Joindre un fichier",
+      "name": "Votre Nom (Optionnel)",
+      "namePlaceholder": "Entrez votre nom",
+      "email": "Votre Email (Optionnel)",
+      "emailPlaceholder": "Entrez votre adresse email",
+      "submit": "Envoyer le rapport de bug",
+      "successMessage": "Problème signalé avec succès !"
+    },
+    "feature": {
+      "title": "Suggérer une fonctionnalité",
+      "search": "Rechercher des suggestions...",
+      "addNew": "Ajouter une nouvelle suggestion",
+      "upvote": "Voter",
+      "votes": "votes",
+      "successMessage": "Suggestion envoyée avec succès !"
+    },
+    "poweredBy": "Propulsé par HappyCust"
+  },
+  "admin": {
+    "auth": {
+      "login": {
+        "title": "Connexion Admin",
+        "description": "Entrez vos identifiants pour accéder au panneau d'administration HappyCust",
+        "email": "Email",
+        "emailPlaceholder": "admin@exemple.com",
+        "password": "Mot de passe",
+        "passwordPlaceholder": "••••••••",
+        "signIn": "Se connecter",
+        "signingIn": "Connexion en cours...",
+        "noAccount": "Pas encore de compte ?",
+        "signUp": "S'inscrire"
+      },
+      "signup": {
+        "title": "Créer un compte Admin",
+        "description": "Inscrivez-vous pour accéder au panneau d'administration HappyCust",
+        "name": "Nom",
+        "namePlaceholder": "Votre nom",
+        "email": "Email",
+        "emailPlaceholder": "admin@exemple.com",
+        "password": "Mot de passe",
+        "passwordPlaceholder": "••••••••",
+        "confirmPassword": "Confirmer le mot de passe",
+        "createAccount": "Créer un compte",
+        "creatingAccount": "Création du compte...",
+        "haveAccount": "Vous avez déjà un compte ?",
+        "signIn": "Se connecter"
+      }
+    },
+    "navigation": {
+      "dashboard": "Tableau de bord",
+      "projects": "Projets",
+      "features": "Suggestions",
+      "issues": "Problèmes",
+      "reviews": "Avis",
+      "feedbacks": "Retours",
+      "signOut": "Déconnexion"
+    },
+    "dashboard": {
+      "title": "Tableau de bord",
+      "welcome": "Bon retour, {name}",
+      "totalFeedbacks": "Total Retours",
+      "totalReviews": "Total Avis",
+      "totalIssues": "Total Problèmes",
+      "featureRequests": "Suggestions",
+      "recentActivity": "Activité récente",
+      "pendingActions": "Actions en attente",
+      "newFeedback": "Nouveaux retours",
+      "newReviews": "Nouveaux avis",
+      "newIssues": "Nouveaux problèmes",
+      "last7Days": "{count} dans les 7 derniers jours",
+      "newFeatureRequests": "Nouvelles suggestions",
+      "unresolvedIssues": "Problèmes non résolus",
+      "unpublishedReviews": "Avis non publiés",
+      "newFeedbacks": "Nouveaux retours"
+    },
+    "projects": {
+      "title": "Projets",
+      "description": "Gérez vos projets et vos clés API",
+      "newProject": "Nouveau projet",
+      "createProject": "Créer un nouveau projet",
+      "createDescription": "Ajoutez un nouveau projet pour commencer à collecter des retours",
+      "projectName": "Nom du projet",
+      "projectNamePlaceholder": "Mon Application",
+      "slug": "Slug",
+      "slugPlaceholder": "mon-application",
+      "domain": "Domaine (Optionnel)",
+      "domainPlaceholder": "https://exemple.com",
+      "creating": "Création...",
+      "apiKey": "Clé API",
+      "copy": "Copier",
+      "copied": "Copié"
+    },
+    "features": {
+      "title": "Suggestions",
+      "description": "Gérez les suggestions des utilisateurs",
+      "allStatuses": "Tous les statuts",
+      "status": "Statut",
+      "priority": "Priorité",
+      "project": "Projet",
+      "votes": "votes",
+      "submittedBy": "Soumis par : {name}",
+      "noFeatures": "Aucune suggestion trouvée"
+    },
+    "status": {
+      "new": "Nouveau",
+      "underConsideration": "À l'étude",
+      "planned": "Planifié",
+      "inProgress": "En cours",
+      "completed": "Terminé",
+      "rejected": "Rejeté",
+      "archived": "Archivé",
+      "resolved": "Résolu",
+      "wontFix": "Ne sera pas corrigé"
+    },
+    "priority": {
+      "low": "Faible",
+      "medium": "Moyenne",
+      "high": "Haute",
+      "urgent": "Urgente"
+    }
+  },
+  "common": {
+    "loading": "Chargement...",
+    "error": "Une erreur s'est produite",
+    "success": "Succès",
+    "cancel": "Annuler",
+    "save": "Enregistrer",
+    "delete": "Supprimer",
+    "edit": "Modifier",
+    "close": "Fermer",
+    "back": "Retour"
+  }
+}

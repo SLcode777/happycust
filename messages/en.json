@@ -1,0 +1,170 @@
+{
+  "widget": {
+    "trigger": "Improve Experience",
+    "menu": {
+      "shareFeedback": "Share Feedback",
+      "leaveReview": "Leave a Review",
+      "reportIssue": "Report an issue",
+      "requestFeature": "Request a Feature"
+    },
+    "feedback": {
+      "title": "Share Feedback",
+      "placeholder": "Tell us more about your experience (optional)",
+      "submit": "Submit",
+      "successMessage": "Feedback submitted successfully!"
+    },
+    "review": {
+      "title": "Leave a Review",
+      "overallRating": "Overall rating",
+      "shareExperience": "Share your experience (Required)",
+      "sharePlaceholder": "Tell us what you think...",
+      "email": "Your Email (Required)",
+      "emailPlaceholder": "your.email@example.com",
+      "emailNote": "Your email won't be displayed publicly",
+      "name": "Your Name (Optional)",
+      "namePlaceholder": "Enter your name",
+      "socialMedia": "Social Media Profile (Optional)",
+      "socialMediaPlaceholder": "https://twitter.com/yourusername",
+      "consent": "I agree that my feedback may be used publicly for marketing or testimonials.",
+      "continue": "Continue",
+      "successMessage": "Review submitted successfully!"
+    },
+    "issue": {
+      "title": "Report an Issue",
+      "description": "Issue Description (Required)",
+      "descriptionPlaceholder": "Please describe the bug you encountered...",
+      "screenshot": "Screenshot (Optional, Max 5MB)",
+      "captureScreenshot": "Capture Screenshot",
+      "attachFile": "Attach File",
+      "name": "Your Name (Optional)",
+      "namePlaceholder": "Enter your name",
+      "email": "Your Email (Optional)",
+      "emailPlaceholder": "Enter your email address",
+      "submit": "Submit Bug Report",
+      "successMessage": "Issue reported successfully!"
+    },
+    "feature": {
+      "title": "Request a Feature",
+      "search": "Search feature requests...",
+      "addNew": "Add New Feature Request",
+      "upvote": "Upvote",
+      "votes": "votes",
+      "successMessage": "Feature request submitted successfully!"
+    },
+    "poweredBy": "Powered by HappyCust"
+  },
+  "admin": {
+    "auth": {
+      "login": {
+        "title": "Admin Login",
+        "description": "Enter your credentials to access the HappyCust admin panel",
+        "email": "Email",
+        "emailPlaceholder": "admin@example.com",
+        "password": "Password",
+        "passwordPlaceholder": "••••••••",
+        "signIn": "Sign In",
+        "signingIn": "Signing in...",
+        "noAccount": "Don't have an account?",
+        "signUp": "Sign up"
+      },
+      "signup": {
+        "title": "Create Admin Account",
+        "description": "Sign up to access the HappyCust admin panel",
+        "name": "Name",
+        "namePlaceholder": "Your Name",
+        "email": "Email",
+        "emailPlaceholder": "admin@example.com",
+        "password": "Password",
+        "passwordPlaceholder": "••••••••",
+        "confirmPassword": "Confirm Password",
+        "createAccount": "Create Account",
+        "creatingAccount": "Creating account...",
+        "haveAccount": "Already have an account?",
+        "signIn": "Sign in"
+      }
+    },
+    "navigation": {
+      "dashboard": "Dashboard",
+      "projects": "Projects",
+      "features": "Feature Requests",
+      "issues": "Issues",
+      "reviews": "Reviews",
+      "feedbacks": "Feedbacks",
+      "signOut": "Sign Out"
+    },
+    "dashboard": {
+      "title": "Dashboard",
+      "welcome": "Welcome back, {name}",
+      "totalFeedbacks": "Total Feedbacks",
+      "totalReviews": "Total Reviews",
+      "totalIssues": "Total Issues",
+      "featureRequests": "Feature Requests",
+      "recentActivity": "Recent Activity",
+      "pendingActions": "Pending Actions",
+      "newFeedback": "New Feedback",
+      "newReviews": "New Reviews",
+      "newIssues": "New Issues",
+      "last7Days": "{count} in the last 7 days",
+      "newFeatureRequests": "New Feature Requests",
+      "unresolvedIssues": "Unresolved Issues",
+      "unpublishedReviews": "Unpublished Reviews",
+      "newFeedbacks": "New Feedbacks"
+    },
+    "projects": {
+      "title": "Projects",
+      "description": "Manage your projects and API keys",
+      "newProject": "New Project",
+      "createProject": "Create New Project",
+      "createDescription": "Add a new project to start collecting feedback",
+      "projectName": "Project Name",
+      "projectNamePlaceholder": "My Awesome App",
+      "slug": "Slug",
+      "slugPlaceholder": "my-awesome-app",
+      "domain": "Domain (Optional)",
+      "domainPlaceholder": "https://example.com",
+      "creating": "Creating...",
+      "apiKey": "API Key",
+      "copy": "Copy",
+      "copied": "Copied"
+    },
+    "features": {
+      "title": "Feature Requests",
+      "description": "Manage feature requests from users",
+      "allStatuses": "All Statuses",
+      "status": "Status",
+      "priority": "Priority",
+      "project": "Project",
+      "votes": "votes",
+      "submittedBy": "Submitted by: {name}",
+      "noFeatures": "No feature requests found"
+    },
+    "status": {
+      "new": "New",
+      "underConsideration": "Under Consideration",
+      "planned": "Planned",
+      "inProgress": "In Progress",
+      "completed": "Completed",
+      "rejected": "Rejected",
+      "archived": "Archived",
+      "resolved": "Resolved",
+      "wontFix": "Won't Fix"
+    },
+    "priority": {
+      "low": "Low",
+      "medium": "Medium",
+      "high": "High",
+      "urgent": "Urgent"
+    }
+  },
+  "common": {
+    "loading": "Loading...",
+    "error": "An error occurred",
+    "success": "Success",
+    "cancel": "Cancel",
+    "save": "Save",
+    "delete": "Delete",
+    "edit": "Edit",
+    "close": "Close",
+    "back": "Back"
+  }
+}
