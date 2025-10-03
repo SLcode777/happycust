@@ -67,7 +67,7 @@ export default async function LandingPage({ params }: Props) {
         <header className="border-b bg-white/80 backdrop-blur-sm sticky top-0 z-50">
           <div className="container mx-auto px-4 py-4 flex items-center justify-between">
             <div className="flex items-center gap-2">
-              <div className="w-8 h-8 bg-gradient-to-br from-blue-600 to-purple-600 rounded-lg flex items-center justify-center">
+              <div className="w-8 h-8 bg-gradient-to-br from-yellow-400 to-orange-500 rounded-lg flex items-center justify-center">
                 <MessageSquare className="h-5 w-5 text-white" />
               </div>
               <span className="text-xl font-bold">HappyCust</span>
@@ -101,8 +101,23 @@ export default async function LandingPage({ params }: Props) {
         {/* Hero Section */}
         <section className="container mx-auto px-4 py-20 md:py-32">
           <div className="max-w-4xl mx-auto text-center">
-            <h1 className="text-5xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent whitespace-pre-line">
-              {t("hero.title")}
+            <h1 className="text-5xl md:text-6xl font-bold mb-6 text-black whitespace-pre-line">
+              {locale === "fr" ? (
+                <>
+                  Vos clients ont des retours{" "}
+                  <span className="bg-gradient-to-r from-yellow-400 to-orange-500 bg-clip-text text-transparent">
+                    précieux
+                  </span>
+                  . Écoutez-les.
+                </>
+              ) : (
+                <>
+                  Customer Feedback,{"\n"}Made{" "}
+                  <span className="bg-gradient-to-r from-yellow-400 to-orange-500 bg-clip-text text-transparent">
+                    Simple
+                  </span>
+                </>
+              )}
             </h1>
             <p className="text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
               {t("hero.subtitle")}
@@ -195,12 +210,12 @@ export default async function LandingPage({ params }: Props) {
         </section>
 
         {/* CTA Section */}
-        <section className="bg-gradient-to-r from-blue-600 to-purple-600 py-20">
+        <section className="bg-gradient-to-r from-yellow-400 to-orange-500 py-20 ">
           <div className="container mx-auto px-4 text-center">
-            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
+            <h2 className="text-3xl md:text-4xl font-bold  mb-4">
               {t("cta.title")}
             </h2>
-            <p className="text-blue-100 text-lg mb-8 max-w-2xl mx-auto">
+            <p className="text-gray-800 text-lg mb-8 max-w-2xl mx-auto">
               {t("cta.subtitle")}
             </p>
             <Link href={`/${locale}/admin/signup`}>
@@ -216,7 +231,7 @@ export default async function LandingPage({ params }: Props) {
           <div className="container mx-auto px-4">
             <div className="flex flex-col md:flex-row justify-between items-center">
               <div className="flex items-center gap-2 mb-4 md:mb-0">
-                <div className="w-8 h-8 bg-gradient-to-br from-blue-600 to-purple-600 rounded-lg flex items-center justify-center">
+                <div className="w-8 h-8 bg-gradient-to-br from-yellow-400 to-orange-500 rounded-lg flex items-center justify-center">
                   <MessageSquare className="h-5 w-5 text-white" />
                 </div>
                 <span className="text-white font-bold">HappyCust</span>

@@ -20,13 +20,15 @@
   iframe.style.cssText = `
     display: none;
     position: fixed;
-    bottom: 20px;
-    right: 20px;
-    width: 420px;
-    height: 680px;
-    border: none;
-    border-radius: 12px;
-    box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+    bottom: 90px;
+    right: 16px;
+    width: 384px;
+    max-width: calc(100vw - 2rem);
+    height: 500px;
+    max-height: calc(100vh - 120px);
+    border: 1px solid #000;
+    border-radius: 8px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.2);
     z-index: 999998;
     background: white;
   `;
@@ -38,6 +40,8 @@
   const openWidget = () => {
     isOpen = true;
     iframe.style.display = "block";
+    // Set initial height to avoid "flat" appearance
+    iframe.style.height = "500px";
     if (button) button.innerHTML = "✕";
   };
 
@@ -81,7 +85,7 @@
       width: 60px;
       height: 60px;
       border-radius: 50%;
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      background: linear-gradient(135deg, #facc15 0%, #f97316 100%);
       color: white;
       border: none;
       font-size: 24px;
@@ -113,6 +117,13 @@
   window.addEventListener("message", (event) => {
     if (event.data.type === "happycust-close") {
       closeWidget();
+    }
+    // Handle iframe height changes
+    if (event.data.type === "happycust-resize" && event.data.height) {
+      const minHeight = 400;
+      const maxHeight = window.innerHeight - 120;
+      const newHeight = Math.max(minHeight, Math.min(event.data.height, maxHeight));
+      iframe.style.height = `${newHeight}px`;
     }
   });
 })();

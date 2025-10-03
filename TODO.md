@@ -1,5 +1,11 @@
 # HappyCust - TODO List
 
+## ⚒️ Fixes
+
+- [ ] Traduction complète du Dashbaord Admin
+- [ ] Lien vers la landing d'happyCust dans le "powered by HappyCust"
+- [ ] 
+
 ## 🚀 Fonctionnalités Futures
 
 ### 📋 Roadmap Publique

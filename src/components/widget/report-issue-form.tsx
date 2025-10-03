@@ -2,7 +2,7 @@
 
 import { useState, useRef } from "react"
 import { useTranslations } from "next-intl"
-import { ArrowLeft, X, Upload, Loader2 } from "lucide-react"
+import { ArrowLeft, Upload, Loader2 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Textarea } from "@/components/ui/textarea"
 import { Input } from "@/components/ui/input"
@@ -97,20 +97,15 @@ export function ReportIssueForm({ onBack, onClose }: ReportIssueFormProps) {
 
   return (
     <div className="relative">
-      <div className="flex items-center justify-between mb-6">
+      <div className="flex items-center gap-3 mb-6">
         <button onClick={onBack} className="rounded-sm opacity-70 hover:opacity-100">
           <ArrowLeft className="h-4 w-4" />
           <span className="sr-only">Back</span>
         </button>
 
-        <h2 className="text-lg font-semibold absolute left-1/2 -translate-x-1/2">
+        <h2 className="text-lg font-semibold">
           {t("title")}
         </h2>
-
-        <button onClick={onClose} className="rounded-sm opacity-70 hover:opacity-100">
-          <X className="h-4 w-4" />
-          <span className="sr-only">Close</span>
-        </button>
       </div>
 
       <form onSubmit={handleSubmit} className="space-y-4">

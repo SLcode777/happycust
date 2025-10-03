@@ -7,9 +7,10 @@ import { useTranslations } from "next-intl";
 interface FeedbackMenuProps {
   onSelect: (view: "feedback" | "review" | "issue" | "feature") => void;
   onClose: () => void;
+  embedded?: boolean;
 }
 
-export function FeedbackMenu({ onSelect, onClose }: FeedbackMenuProps) {
+export function FeedbackMenu({ onSelect, onClose, embedded = false }: FeedbackMenuProps) {
   const t = useTranslations("widget.menu");
 
   const menuItems = [
@@ -45,15 +46,17 @@ export function FeedbackMenu({ onSelect, onClose }: FeedbackMenuProps) {
 
   return (
     <div className="relative">
-      <div className="flex items-center justify-between mb-6">
+      <div className={`flex items-center mb-6 ${embedded ? 'justify-between' : ''}`}>
         <p className="font-semibold">Améliorons ensemble l&apos;application !</p>
-        <button
-          onClick={onClose}
-          className="rounded-full py-2 opacity-70 hover:opacity-100"
-        >
-          <X className="h-4 w-4" />
-          <span className="sr-only">Close</span>
-        </button>
+        {embedded && (
+          <button
+            onClick={onClose}
+            className="rounded-full py-2 opacity-70 hover:opacity-100"
+          >
+            <X className="h-4 w-4" />
+            <span className="sr-only">Close</span>
+          </button>
+        )}
       </div>
 
       <div className="space-y-3">

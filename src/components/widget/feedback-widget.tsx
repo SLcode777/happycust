@@ -1,10 +1,10 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { Dialog, DialogContent } from "@/components/ui/dialog";
-import { MessageSquare } from "lucide-react";
+import { MessageSquare, X } from "lucide-react";
 import { useTranslations } from "next-intl";
-import { useState, useEffect } from "react";
+import Link from "next/link";
+import { useEffect, useState } from "react";
 import { FeedbackMenu } from "./feedback-menu";
 import { LeaveReviewForm } from "./leave-review-form";
 import { ReportIssueForm } from "./report-issue-form";
@@ -60,13 +60,59 @@ export function FeedbackWidget({
     setCurrentView("menu");
   };
 
+  // Send height updates to parent window when in embedded mode
+  useEffect(() => {
+    if (!embedded) return;
+
+    const sendHeight = () => {
+      const container = document.getElementById("widget-container");
+      if (container) {
+        const height = Math.max(container.offsetHeight + 20, 400); // Minimum 400px
+        window.parent.postMessage({ type: "happycust-resize", height }, "*");
+      }
+    };
+
+    // Send height multiple times to ensure it's captured
+    const timers = [
+      setTimeout(sendHeight, 0),
+      setTimeout(sendHeight, 50),
+      setTimeout(sendHeight, 150),
+      setTimeout(sendHeight, 300),
+    ];
+
+    // Also use ResizeObserver for dynamic changes
+    const container = document.getElementById("widget-container");
+    if (container) {
+      const observer = new ResizeObserver(() => {
+        sendHeight();
+      });
+      observer.observe(container);
+
+      return () => {
+        observer.disconnect();
+        timers.forEach((t) => clearTimeout(t));
+      };
+    }
+
+    return () => {
+      timers.forEach((t) => clearTimeout(t));
+    };
+  }, [embedded, currentView]);
+
   if (embedded) {
     return (
-      <div className="w-full h-screen bg-white flex flex-col">
+      <div
+        id="widget-container"
+        className="w-full min-h-[400px] bg-white flex flex-col"
+      >
         <WidgetProvider config={{ projectId, hideBranding }}>
-          <div className="flex-1 overflow-auto p-4">
+          <div className="flex-1 px-4 pt-4">
             {currentView === "menu" && (
-              <FeedbackMenu onSelect={setCurrentView} onClose={handleClose} />
+              <FeedbackMenu
+                onSelect={setCurrentView}
+                onClose={handleClose}
+                embedded={true}
+              />
             )}
             {currentView === "feedback" && (
               <ShareFeedbackForm onBack={handleBack} onClose={handleClose} />
@@ -83,9 +129,16 @@ export function FeedbackWidget({
           </div>
 
           {!hideBranding && (
-            <div className="py-3 text-center text-xs text-muted-foreground border-t bg-gray-50">
-              {t("poweredBy")}
-            </div>
+            <Link
+              href="http://localhost:3000"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="block pt-6"
+            >
+              <div className="text-center text-xs text-muted-foreground">
+                {t("poweredBy")}
+              </div>
+            </Link>
           )}
         </WidgetProvider>
       </div>
@@ -103,33 +156,58 @@ export function FeedbackWidget({
         {t("trigger")}
       </Button>
 
-      <Dialog open={isOpen} onOpenChange={setIsOpen}>
-        <DialogContent className="sm:max-w-md">
-          <WidgetProvider config={{ projectId, hideBranding }}>
-            {currentView === "menu" && (
-              <FeedbackMenu onSelect={setCurrentView} onClose={handleClose} />
-            )}
-            {currentView === "feedback" && (
-              <ShareFeedbackForm onBack={handleBack} onClose={handleClose} />
-            )}
-            {currentView === "review" && (
-              <LeaveReviewForm onBack={handleBack} onClose={handleClose} />
-            )}
-            {currentView === "issue" && (
-              <ReportIssueForm onBack={handleBack} onClose={handleClose} />
-            )}
-            {currentView === "feature" && (
-              <RequestFeatureForm onBack={handleBack} onClose={handleClose} />
-            )}
+      {isOpen && (
+        <>
+          {/* Backdrop optionnel - retiré pour ne pas assombrir */}
+          <div
+            className="fixed inset-0 z-40"
+            onClick={() => setIsOpen(false)}
+          />
 
-            {!hideBranding && (
-              <div className="mt-4 text-center text-xs text-muted-foreground">
-                {t("poweredBy")}
-              </div>
-            )}
-          </WidgetProvider>
-        </DialogContent>
-      </Dialog>
+          {/* Popover */}
+          <div className="fixed bottom-20 right-4 z-50 w-96 max-w-[calc(100vw-2rem)] bg-white border rounded-lg shadow-xl p-6">
+            <WidgetProvider config={{ projectId, hideBranding }}>
+              {/* Close button */}
+              <button
+                onClick={handleClose}
+                className="absolute right-4 top-4 rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
+              >
+                <X className="h-4 w-4" />
+                <span className="sr-only">Close</span>
+              </button>
+
+              {currentView === "menu" && (
+                <FeedbackMenu onSelect={setCurrentView} onClose={handleClose} />
+              )}
+              {currentView === "feedback" && (
+                <ShareFeedbackForm onBack={handleBack} onClose={handleClose} />
+              )}
+              {currentView === "review" && (
+                <LeaveReviewForm onBack={handleBack} onClose={handleClose} />
+              )}
+              {currentView === "issue" && (
+                <ReportIssueForm onBack={handleBack} onClose={handleClose} />
+              )}
+              {currentView === "feature" && (
+                <RequestFeatureForm onBack={handleBack} onClose={handleClose} />
+              )}
+
+              {!hideBranding && (
+                <Link
+                  href="http://localhost:3000"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="block pt-6"
+                >
+                  <div className="text-center text-xs text-muted-foreground">
+                    {t("poweredBy")}
+                  </div>
+                </Link>
+              )}
+            </WidgetProvider>
+          </div>
+        </>
+      )}
     </>
   );
 }

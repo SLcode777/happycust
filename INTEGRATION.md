@@ -1,5 +1,76 @@
 # HappyCust Integration Guide
 
+## 🎯 Feedback Widget Integration
+
+### Pour intégrer le widget de feedback sur ton site (AllyMeal, etc.)
+
+#### Méthode simple : Script d'intégration (Recommandé)
+
+Ajoute ce code **juste avant la balise `</body>`** de ton site :
+
+```html
+<!-- HappyCust Feedback Widget -->
+<script>
+  window.HappyCustConfig = {
+    projectId: "TON_PROJECT_ID_ICI",        // ⚠️ Remplace par ton vrai project ID
+    locale: "fr",                            // ou "en"
+    happycustUrl: "https://happycust.com"    // URL de production
+  };
+</script>
+<script src="https://happycust.com/widget.js"></script>
+```
+
+**Ce que ça fait automatiquement :**
+- ✅ Crée un bouton flottant rond (💬) en bas à droite avec le gradient jaune-orange
+- ✅ Ouvre une iframe avec bordure noire et style popover (comme sur la landing page)
+- ✅ Même apparence sur tous les sites
+
+#### Options de configuration
+
+**Utiliser ton propre bouton personnalisé :**
+
+```html
+<script>
+  window.HappyCustConfig = {
+    projectId: "TON_PROJECT_ID",
+    locale: "fr",
+    customTrigger: true,  // ← Désactive le bouton par défaut
+    happycustUrl: "https://happycust.com"
+  };
+</script>
+<script src="https://happycust.com/widget.js"></script>
+
+<!-- Ton propre bouton -->
+<button onclick="window.HappyCust.open()">
+  Support Client
+</button>
+```
+
+**Contrôle programmatique :**
+
+```javascript
+// Ouvrir le widget
+window.HappyCust.open();
+
+// Fermer le widget
+window.HappyCust.close();
+
+// Toggle (ouvrir/fermer)
+window.HappyCust.toggle();
+```
+
+#### Pour le développement local
+
+```javascript
+window.HappyCustConfig = {
+  projectId: "cmg9tfp8i0003d8gktskxiay0",
+  locale: "fr",
+  happycustUrl: "http://localhost:3000"  // ← URL locale
+};
+```
+
+---
+
 ## 📦 Reviews Widget Integration
 
 Display your published customer reviews on your website with the HappyCust Reviews Widget.

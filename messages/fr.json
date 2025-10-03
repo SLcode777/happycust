@@ -175,8 +175,8 @@
       "getStarted": "Commencer"
     },
     "hero": {
-      "title": "Retours clients,\nEn toute simplicité",
-      "subtitle": "Collectez les retours, avis, rapports de bugs et suggestions de fonctionnalités de vos clients. Le tout dans un seul widget intégrable.",
+      "title": "Vos clients ont des retours précieux. Écoutez-les.",
+      "subtitle": "Feedbacks, avis, bugs, demandes de fonctionnalités : un widget simple pour tout centraliser.",
       "startTrial": "Essai gratuit",
       "seeDemo": "Voir la démo"
     },
@@ -219,7 +219,7 @@
     },
     "cta": {
       "title": "Prêt à écouter vos clients ?",
-      "subtitle": "Rejoignez les entreprises qui valorisent les retours clients. Commencez à collecter des insights dès aujourd'hui.",
+      "subtitle": "Rejoignez les entreprises qui valorisent les avis de leurs clients. Commencez à collecter des retours perspicaces dès aujourd'hui.",
       "button": "Commencer gratuitement"
     },
     "footer": {

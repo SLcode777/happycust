@@ -2,7 +2,7 @@
 
 import { useState } from "react"
 import { useTranslations } from "next-intl"
-import { ArrowLeft, X, ChevronUp, Plus, Search } from "lucide-react"
+import { ArrowLeft, ChevronUp, Plus, Search } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
@@ -113,7 +113,7 @@ export function RequestFeatureForm({ onBack, onClose }: ReportFeatureFormProps) 
 
   return (
     <div className="relative">
-      <div className="flex items-center justify-between mb-6">
+      <div className="flex items-center gap-3 mb-6">
         <button onClick={onBack} className="rounded-sm opacity-70 hover:opacity-100">
           <ArrowLeft className="h-4 w-4" />
           <span className="sr-only">Back</span>
@@ -122,34 +122,32 @@ export function RequestFeatureForm({ onBack, onClose }: ReportFeatureFormProps) 
         <h2 className="text-lg font-semibold">
           {t("title")}
         </h2>
-
-        <button onClick={onClose} className="rounded-sm opacity-70 hover:opacity-100">
-          <X className="h-4 w-4" />
-          <span className="sr-only">Close</span>
-        </button>
       </div>
 
-      <div className="space-y-4">
+      <div className="flex flex-col space-y-4">
         {!showAddForm ? (
           <>
-            <div className="relative">
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-              <Input
-                placeholder={t("search")}
-                value={search}
-                onChange={(e) => setSearch(e.target.value)}
-                className="pl-10"
-              />
-            </div>
+            {/* Header fixe */}
+            <div className="space-y-3 flex-shrink-0">
+              <div className="relative">
+                <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                <Input
+                  placeholder={t("search")}
+                  value={search}
+                  onChange={(e) => setSearch(e.target.value)}
+                  className="pl-10"
+                />
+              </div>
 
-            <Button
-              onClick={() => setShowAddForm(true)}
-              className="w-full"
-              variant="secondary"
-            >
-              <Plus className="mr-2 h-4 w-4" />
-              {t("addNew")}
-            </Button>
+              <Button
+                onClick={() => setShowAddForm(true)}
+                className="w-full"
+                variant="secondary"
+              >
+                <Plus className="mr-2 h-4 w-4" />
+                {t("addNew")}
+              </Button>
+            </div>
           </>
         ) : (
           <form onSubmit={handleCreateFeature} className="space-y-4">
@@ -218,7 +216,7 @@ export function RequestFeatureForm({ onBack, onClose }: ReportFeatureFormProps) 
         )}
 
         {!showAddForm && (
-          <div className="space-y-2 max-h-[400px] overflow-y-auto">
+          <div className="space-y-2 overflow-y-auto pr-1" style={{ minHeight: "360px", maxHeight: "450px" }}>
             {isLoading ? (
               <p className="text-center text-muted-foreground py-4">Loading...</p>
             ) : features.length === 0 ? (
