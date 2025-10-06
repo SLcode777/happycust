@@ -2,6 +2,7 @@
 
 import { useState } from "react"
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query"
+import { useTranslations } from "next-intl"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import {
   Select,
@@ -43,6 +44,10 @@ const priorityColors: Record<string, string> = {
 }
 
 export default function FeedbacksPage() {
+  const t = useTranslations("admin.feedbacks")
+  const tStatus = useTranslations("admin.status")
+  const tPriority = useTranslations("admin.priority")
+  const tCommon = useTranslations("common")
   const queryClient = useQueryClient()
   const [filterStatus, setFilterStatus] = useState("all")
 
@@ -68,27 +73,27 @@ export default function FeedbacksPage() {
     <div>
       <div className="flex items-center justify-between mb-8">
         <div>
-          <h1 className="text-3xl font-bold">Feedbacks</h1>
-          <p className="text-gray-600 mt-2">Manage customer feedback</p>
+          <h1 className="text-3xl font-bold">{t("title")}</h1>
+          <p className="text-gray-600 mt-2">{t("description")}</p>
         </div>
         <Select value={filterStatus} onValueChange={setFilterStatus}>
           <SelectTrigger className="w-48">
             <SelectValue />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="all">All Statuses</SelectItem>
-            <SelectItem value="NEW">New</SelectItem>
-            <SelectItem value="IN_PROGRESS">In Progress</SelectItem>
-            <SelectItem value="RESOLVED">Resolved</SelectItem>
-            <SelectItem value="ARCHIVED">Archived</SelectItem>
+            <SelectItem value="all">{t("allStatuses")}</SelectItem>
+            <SelectItem value="NEW">{tStatus("new")}</SelectItem>
+            <SelectItem value="IN_PROGRESS">{tStatus("inProgress")}</SelectItem>
+            <SelectItem value="RESOLVED">{tStatus("resolved")}</SelectItem>
+            <SelectItem value="ARCHIVED">{tStatus("archived")}</SelectItem>
           </SelectContent>
         </Select>
       </div>
 
       {isLoading ? (
-        <div className="text-center py-12">Loading feedbacks...</div>
+        <div className="text-center py-12">{tCommon("loading")}</div>
       ) : filteredFeedbacks?.length === 0 ? (
-        <div className="text-center py-12 text-gray-500">No feedbacks found</div>
+        <div className="text-center py-12 text-gray-500">{t("noFeedbacks")}</div>
       ) : (
         <div className="space-y-4">
           {filteredFeedbacks?.map((feedback: any) => (
@@ -97,7 +102,7 @@ export default function FeedbacksPage() {
                 <CardTitle className="text-lg">{feedback.content}</CardTitle>
                 {feedback.name && (
                   <CardDescription>
-                    From: {feedback.name} {feedback.email && `(${feedback.email})`}
+                    {t("from", { name: `${feedback.name}${feedback.email ? ` (${feedback.email})` : ""}` })}
                   </CardDescription>
                 )}
               </CardHeader>
@@ -105,7 +110,7 @@ export default function FeedbacksPage() {
                 <div className="flex items-center gap-4">
                   <div className="flex-1 grid grid-cols-3 gap-4">
                     <div>
-                      <label className="text-xs text-gray-600 mb-1 block">Status</label>
+                      <label className="text-xs text-gray-600 mb-1 block">{t("status")}</label>
                       <Select
                         value={feedback.status}
                         onValueChange={(value) =>
@@ -116,16 +121,16 @@ export default function FeedbacksPage() {
                           <SelectValue />
                         </SelectTrigger>
                         <SelectContent>
-                          <SelectItem value="NEW">New</SelectItem>
-                          <SelectItem value="IN_PROGRESS">In Progress</SelectItem>
-                          <SelectItem value="RESOLVED">Resolved</SelectItem>
-                          <SelectItem value="ARCHIVED">Archived</SelectItem>
+                          <SelectItem value="NEW">{tStatus("new")}</SelectItem>
+                          <SelectItem value="IN_PROGRESS">{tStatus("inProgress")}</SelectItem>
+                          <SelectItem value="RESOLVED">{tStatus("resolved")}</SelectItem>
+                          <SelectItem value="ARCHIVED">{tStatus("archived")}</SelectItem>
                         </SelectContent>
                       </Select>
                     </div>
 
                     <div>
-                      <label className="text-xs text-gray-600 mb-1 block">Priority</label>
+                      <label className="text-xs text-gray-600 mb-1 block">{t("priority")}</label>
                       <Select
                         value={feedback.priority}
                         onValueChange={(value) =>
@@ -140,16 +145,16 @@ export default function FeedbacksPage() {
                           <SelectValue />
                         </SelectTrigger>
                         <SelectContent>
-                          <SelectItem value="LOW">Low</SelectItem>
-                          <SelectItem value="MEDIUM">Medium</SelectItem>
-                          <SelectItem value="HIGH">High</SelectItem>
-                          <SelectItem value="URGENT">Urgent</SelectItem>
+                          <SelectItem value="LOW">{tPriority("low")}</SelectItem>
+                          <SelectItem value="MEDIUM">{tPriority("medium")}</SelectItem>
+                          <SelectItem value="HIGH">{tPriority("high")}</SelectItem>
+                          <SelectItem value="URGENT">{tPriority("urgent")}</SelectItem>
                         </SelectContent>
                       </Select>
                     </div>
 
                     <div>
-                      <label className="text-xs text-gray-600 mb-1 block">Project</label>
+                      <label className="text-xs text-gray-600 mb-1 block">{t("project")}</label>
                       <p className="text-sm font-medium truncate">
                         {feedback.project?.name}
                       </p>
@@ -167,7 +172,7 @@ export default function FeedbacksPage() {
                 </div>
 
                 <div className="mt-4 text-xs text-gray-500">
-                  Submitted: {new Date(feedback.createdAt).toLocaleDateString()}
+                  {t("submitted")}: {new Date(feedback.createdAt).toLocaleDateString()}
                 </div>
               </CardContent>
             </Card>

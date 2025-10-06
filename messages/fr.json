@@ -95,6 +95,7 @@
     "dashboard": {
       "title": "Tableau de bord",
       "welcome": "Bon retour, {name}",
+      "loading": "Chargement des statistiques...",
       "totalFeedbacks": "Total Retours",
       "totalReviews": "Total Avis",
       "totalIssues": "Total Problèmes",
@@ -123,9 +124,14 @@
       "domain": "Domaine (Optionnel)",
       "domainPlaceholder": "https://exemple.com",
       "creating": "Création...",
+      "loading": "Chargement des projets...",
       "apiKey": "Clé API",
       "copy": "Copier",
-      "copied": "Copié"
+      "copied": "Copié",
+      "feedbacks": "Retours",
+      "reviews": "Avis",
+      "issues": "Problèmes",
+      "features": "Suggestions"
     },
     "features": {
       "title": "Suggestions",
@@ -154,6 +160,44 @@
       "medium": "Moyenne",
       "high": "Haute",
       "urgent": "Urgente"
+    },
+    "issues": {
+      "title": "Problèmes",
+      "description": "Gérez les rapports de bugs des utilisateurs",
+      "allStatuses": "Tous les statuts",
+      "status": "Statut",
+      "priority": "Priorité",
+      "project": "Projet",
+      "reportedBy": "Signalé par : {name}",
+      "noIssues": "Aucun problème trouvé",
+      "screenshot": "Capture d'écran",
+      "viewScreenshot": "Voir la capture d'écran"
+    },
+    "reviews": {
+      "title": "Avis",
+      "description": "Gérez les avis clients",
+      "all": "Tous",
+      "published": "Publiés",
+      "unpublished": "Non publiés",
+      "noReviews": "Aucun avis trouvé",
+      "anonymous": "Anonyme",
+      "marketingOk": "Marketing OK",
+      "social": "Réseau social",
+      "project": "Projet",
+      "submitted": "Soumis",
+      "publishAction": "Publier",
+      "unpublishAction": "Dépublier"
+    },
+    "feedbacks": {
+      "title": "Retours",
+      "description": "Gérez les retours clients",
+      "allStatuses": "Tous les statuts",
+      "status": "Statut",
+      "priority": "Priorité",
+      "project": "Projet",
+      "from": "De : {name}",
+      "noFeedbacks": "Aucun retour trouvé",
+      "submitted": "Soumis"
     }
   },
   "common": {

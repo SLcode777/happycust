@@ -1,7 +1,7 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { Bug, Lightbulb, MessageCircle, Star, X } from "lucide-react";
+import { Bug, Lightbulb, MessageSquare, Star, X } from "lucide-react";
 import { useTranslations } from "next-intl";
 
 interface FeedbackMenuProps {
@@ -10,44 +10,54 @@ interface FeedbackMenuProps {
   embedded?: boolean;
 }
 
-export function FeedbackMenu({ onSelect, onClose, embedded = false }: FeedbackMenuProps) {
+export function FeedbackMenu({
+  onSelect,
+  onClose,
+  embedded = false,
+}: FeedbackMenuProps) {
   const t = useTranslations("widget.menu");
 
   const menuItems = [
     {
       id: "feedback" as const,
       label: t("shareFeedback"),
-      icon: MessageCircle,
-      bgColor: "bg-blue-100",
+      icon: MessageSquare,
+      bgColor: "bg-blue-50",
       iconColor: "text-blue-600",
     },
     {
       id: "review" as const,
       label: t("leaveReview"),
       icon: Star,
-      bgColor: "bg-yellow-100",
+      bgColor: "bg-yellow-50",
       iconColor: "text-yellow-600",
     },
     {
       id: "issue" as const,
       label: t("reportIssue"),
       icon: Bug,
-      bgColor: "bg-red-100",
+      bgColor: "bg-red-50",
       iconColor: "text-red-600",
     },
     {
       id: "feature" as const,
       label: t("requestFeature"),
       icon: Lightbulb,
-      bgColor: "bg-green-100",
-      iconColor: "text-green-600",
+      bgColor: "bg-purple-50",
+      iconColor: "text-purple-600",
     },
   ];
 
   return (
     <div className="relative">
-      <div className={`flex items-center mb-6 ${embedded ? 'justify-between' : ''}`}>
-        <p className="font-semibold">Améliorons ensemble l&apos;application !</p>
+      <div
+        className={`flex items-center mb-6 ${
+          embedded ? "justify-between" : ""
+        }`}
+      >
+        <p className="font-semibold">
+          Améliorons ensemble l&apos;application !
+        </p>
         {embedded && (
           <button
             onClick={onClose}

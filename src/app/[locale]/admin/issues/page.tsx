@@ -2,6 +2,7 @@
 
 import { useState } from "react"
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query"
+import { useTranslations } from "next-intl"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import {
   Select,
@@ -44,6 +45,10 @@ const priorityColors: Record<string, string> = {
 }
 
 export default function IssuesPage() {
+  const t = useTranslations("admin.issues")
+  const tStatus = useTranslations("admin.status")
+  const tPriority = useTranslations("admin.priority")
+  const tCommon = useTranslations("common")
   const queryClient = useQueryClient()
   const [filterStatus, setFilterStatus] = useState("all")
 
@@ -69,28 +74,28 @@ export default function IssuesPage() {
     <div>
       <div className="flex items-center justify-between mb-8">
         <div>
-          <h1 className="text-3xl font-bold">Issues</h1>
-          <p className="text-gray-600 mt-2">Manage bug reports from users</p>
+          <h1 className="text-3xl font-bold">{t("title")}</h1>
+          <p className="text-gray-600 mt-2">{t("description")}</p>
         </div>
         <Select value={filterStatus} onValueChange={setFilterStatus}>
           <SelectTrigger className="w-48">
             <SelectValue />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="all">All Statuses</SelectItem>
-            <SelectItem value="NEW">New</SelectItem>
-            <SelectItem value="IN_PROGRESS">In Progress</SelectItem>
-            <SelectItem value="RESOLVED">Resolved</SelectItem>
-            <SelectItem value="WONT_FIX">Won&apos;t Fix</SelectItem>
-            <SelectItem value="ARCHIVED">Archived</SelectItem>
+            <SelectItem value="all">{t("allStatuses")}</SelectItem>
+            <SelectItem value="NEW">{tStatus("new")}</SelectItem>
+            <SelectItem value="IN_PROGRESS">{tStatus("inProgress")}</SelectItem>
+            <SelectItem value="RESOLVED">{tStatus("resolved")}</SelectItem>
+            <SelectItem value="WONT_FIX">{tStatus("wontFix")}</SelectItem>
+            <SelectItem value="ARCHIVED">{tStatus("archived")}</SelectItem>
           </SelectContent>
         </Select>
       </div>
 
       {isLoading ? (
-        <div className="text-center py-12">Loading issues...</div>
+        <div className="text-center py-12">{tCommon("loading")}</div>
       ) : filteredIssues?.length === 0 ? (
-        <div className="text-center py-12 text-gray-500">No issues found</div>
+        <div className="text-center py-12 text-gray-500">{t("noIssues")}</div>
       ) : (
         <div className="space-y-4">
           {filteredIssues?.map((issue: any) => (
@@ -99,7 +104,7 @@ export default function IssuesPage() {
                 <CardTitle className="text-lg">{issue.description}</CardTitle>
                 {issue.name && (
                   <CardDescription>
-                    Reported by: {issue.name} {issue.email && `(${issue.email})`}
+                    {t("reportedBy", { name: `${issue.name}${issue.email ? ` (${issue.email})` : ""}` })}
                   </CardDescription>
                 )}
               </CardHeader>
@@ -107,7 +112,7 @@ export default function IssuesPage() {
                 <div className="flex items-center gap-4">
                   <div className="flex-1 grid grid-cols-3 gap-4">
                     <div>
-                      <label className="text-xs text-gray-600 mb-1 block">Status</label>
+                      <label className="text-xs text-gray-600 mb-1 block">{t("status")}</label>
                       <Select
                         value={issue.status}
                         onValueChange={(value) =>
@@ -118,17 +123,17 @@ export default function IssuesPage() {
                           <SelectValue />
                         </SelectTrigger>
                         <SelectContent>
-                          <SelectItem value="NEW">New</SelectItem>
-                          <SelectItem value="IN_PROGRESS">In Progress</SelectItem>
-                          <SelectItem value="RESOLVED">Resolved</SelectItem>
-                          <SelectItem value="WONT_FIX">Won&apos;t Fix</SelectItem>
-                          <SelectItem value="ARCHIVED">Archived</SelectItem>
+                          <SelectItem value="NEW">{tStatus("new")}</SelectItem>
+                          <SelectItem value="IN_PROGRESS">{tStatus("inProgress")}</SelectItem>
+                          <SelectItem value="RESOLVED">{tStatus("resolved")}</SelectItem>
+                          <SelectItem value="WONT_FIX">{tStatus("wontFix")}</SelectItem>
+                          <SelectItem value="ARCHIVED">{tStatus("archived")}</SelectItem>
                         </SelectContent>
                       </Select>
                     </div>
 
                     <div>
-                      <label className="text-xs text-gray-600 mb-1 block">Priority</label>
+                      <label className="text-xs text-gray-600 mb-1 block">{t("priority")}</label>
                       <Select
                         value={issue.priority}
                         onValueChange={(value) =>
@@ -139,16 +144,16 @@ export default function IssuesPage() {
                           <SelectValue />
                         </SelectTrigger>
                         <SelectContent>
-                          <SelectItem value="LOW">Low</SelectItem>
-                          <SelectItem value="MEDIUM">Medium</SelectItem>
-                          <SelectItem value="HIGH">High</SelectItem>
-                          <SelectItem value="URGENT">Urgent</SelectItem>
+                          <SelectItem value="LOW">{tPriority("low")}</SelectItem>
+                          <SelectItem value="MEDIUM">{tPriority("medium")}</SelectItem>
+                          <SelectItem value="HIGH">{tPriority("high")}</SelectItem>
+                          <SelectItem value="URGENT">{tPriority("urgent")}</SelectItem>
                         </SelectContent>
                       </Select>
                     </div>
 
                     <div>
-                      <label className="text-xs text-gray-600 mb-1 block">Project</label>
+                      <label className="text-xs text-gray-600 mb-1 block">{t("project")}</label>
                       <p className="text-sm font-medium truncate">{issue.project?.name}</p>
                     </div>
                   </div>
@@ -165,14 +170,14 @@ export default function IssuesPage() {
 
                 {issue.screenshotUrl && (
                   <div className="mt-4">
-                    <label className="text-xs text-gray-600 mb-1 block">Screenshot</label>
+                    <label className="text-xs text-gray-600 mb-1 block">{t("screenshot")}</label>
                     <a
                       href={issue.screenshotUrl}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="text-sm text-blue-600 hover:underline"
                     >
-                      View screenshot
+                      {t("viewScreenshot")}
                     </a>
                   </div>
                 )}

@@ -15,6 +15,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog"
+import { useTranslations } from "next-intl"
 
 async function fetchProjects() {
   const response = await fetch("/api/admin/projects")
@@ -33,6 +34,7 @@ async function createProject(data: { name: string; slug: string; domain?: string
 }
 
 export default function ProjectsPage() {
+  const t = useTranslations("admin.projects")
   const queryClient = useQueryClient()
   const [open, setOpen] = useState(false)
   const [name, setName] = useState("")
@@ -71,26 +73,26 @@ export default function ProjectsPage() {
     <div>
       <div className="flex items-center justify-between mb-8">
         <div>
-          <h1 className="text-3xl font-bold">Projects</h1>
-          <p className="text-gray-600 mt-2">Manage your projects and API keys</p>
+          <h1 className="text-3xl font-bold">{t("title")}</h1>
+          <p className="text-gray-600 mt-2">{t("description")}</p>
         </div>
         <Dialog open={open} onOpenChange={setOpen}>
           <DialogTrigger asChild>
             <Button>
               <Plus className="mr-2 h-4 w-4" />
-              New Project
+              {t("newProject")}
             </Button>
           </DialogTrigger>
           <DialogContent>
             <DialogHeader>
-              <DialogTitle>Create New Project</DialogTitle>
+              <DialogTitle>{t("createProject")}</DialogTitle>
               <DialogDescription>
-                Add a new project to start collecting feedback
+                {t("createDescription")}
               </DialogDescription>
             </DialogHeader>
             <form onSubmit={handleSubmit} className="space-y-4">
               <div className="space-y-2">
-                <Label htmlFor="name">Project Name</Label>
+                <Label htmlFor="name">{t("projectName")}</Label>
                 <Input
                   id="name"
                   value={name}
@@ -98,31 +100,31 @@ export default function ProjectsPage() {
                     setName(e.target.value)
                     setSlug(e.target.value.toLowerCase().replace(/\s+/g, "-"))
                   }}
-                  placeholder="My Awesome App"
+                  placeholder={t("projectNamePlaceholder")}
                   required
                 />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="slug">Slug</Label>
+                <Label htmlFor="slug">{t("slug")}</Label>
                 <Input
                   id="slug"
                   value={slug}
                   onChange={(e) => setSlug(e.target.value)}
-                  placeholder="my-awesome-app"
+                  placeholder={t("slugPlaceholder")}
                   required
                 />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="domain">Domain (Optional)</Label>
+                <Label htmlFor="domain">{t("domain")}</Label>
                 <Input
                   id="domain"
                   value={domain}
                   onChange={(e) => setDomain(e.target.value)}
-                  placeholder="https://example.com"
+                  placeholder={t("domainPlaceholder")}
                 />
               </div>
               <Button type="submit" className="w-full" disabled={createMutation.isPending}>
-                {createMutation.isPending ? "Creating..." : "Create Project"}
+                {createMutation.isPending ? t("creating") : t("createProject")}
               </Button>
             </form>
           </DialogContent>
@@ -130,7 +132,7 @@ export default function ProjectsPage() {
       </div>
 
       {isLoading ? (
-        <div className="text-center py-12">Loading projects...</div>
+        <div className="text-center py-12">{t("loading")}</div>
       ) : (
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
           {projects?.data?.map((project: any) => (
@@ -142,13 +144,13 @@ export default function ProjectsPage() {
               <CardContent className="space-y-4">
                 {project.domain && (
                   <div>
-                    <p className="text-sm text-gray-600">Domain</p>
+                    <p className="text-sm text-gray-600">{t("domain")}</p>
                     <p className="text-sm font-mono">{project.domain}</p>
                   </div>
                 )}
                 <div>
                   <div className="flex items-center justify-between mb-1">
-                    <p className="text-sm text-gray-600">API Key</p>
+                    <p className="text-sm text-gray-600">{t("apiKey")}</p>
                     <button
                       onClick={() => copyToClipboard(project.apiKey, project.id)}
                       className="text-sm text-blue-600 hover:text-blue-700 flex items-center gap-1"
@@ -156,12 +158,12 @@ export default function ProjectsPage() {
                       {copiedKey === project.id ? (
                         <>
                           <Check className="h-3 w-3" />
-                          Copied
+                          {t("copied")}
                         </>
                       ) : (
                         <>
                           <Copy className="h-3 w-3" />
-                          Copy
+                          {t("copy")}
                         </>
                       )}
                     </button>
@@ -172,19 +174,19 @@ export default function ProjectsPage() {
                 </div>
                 <div className="grid grid-cols-2 gap-4 pt-4 border-t">
                   <div>
-                    <p className="text-xs text-gray-500">Feedbacks</p>
+                    <p className="text-xs text-gray-500">{t("feedbacks")}</p>
                     <p className="text-lg font-bold">{project._count?.feedbacks || 0}</p>
                   </div>
                   <div>
-                    <p className="text-xs text-gray-500">Reviews</p>
+                    <p className="text-xs text-gray-500">{t("reviews")}</p>
                     <p className="text-lg font-bold">{project._count?.reviews || 0}</p>
                   </div>
                   <div>
-                    <p className="text-xs text-gray-500">Issues</p>
+                    <p className="text-xs text-gray-500">{t("issues")}</p>
                     <p className="text-lg font-bold">{project._count?.issues || 0}</p>
                   </div>
                   <div>
-                    <p className="text-xs text-gray-500">Features</p>
+                    <p className="text-xs text-gray-500">{t("features")}</p>
                     <p className="text-lg font-bold">{project._count?.featureRequests || 0}</p>
                   </div>
                 </div>

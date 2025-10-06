@@ -2,6 +2,7 @@
 
 import { useState } from "react"
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query"
+import { useTranslations } from "next-intl"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import {
@@ -48,6 +49,10 @@ const priorityColors: Record<string, string> = {
 }
 
 export default function FeaturesPage() {
+  const t = useTranslations("admin.features")
+  const tStatus = useTranslations("admin.status")
+  const tPriority = useTranslations("admin.priority")
+  const tCommon = useTranslations("common")
   const queryClient = useQueryClient()
   const [filterStatus, setFilterStatus] = useState("all")
 
@@ -73,31 +78,31 @@ export default function FeaturesPage() {
     <div>
       <div className="flex items-center justify-between mb-8">
         <div>
-          <h1 className="text-3xl font-bold">Feature Requests</h1>
-          <p className="text-gray-600 mt-2">Manage feature requests from users</p>
+          <h1 className="text-3xl font-bold">{t("title")}</h1>
+          <p className="text-gray-600 mt-2">{t("description")}</p>
         </div>
         <Select value={filterStatus} onValueChange={setFilterStatus}>
           <SelectTrigger className="w-48">
             <SelectValue />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="all">All Statuses</SelectItem>
-            <SelectItem value="NEW">New</SelectItem>
-            <SelectItem value="UNDER_CONSIDERATION">Under Consideration</SelectItem>
-            <SelectItem value="PLANNED">Planned</SelectItem>
-            <SelectItem value="IN_PROGRESS">In Progress</SelectItem>
-            <SelectItem value="COMPLETED">Completed</SelectItem>
-            <SelectItem value="REJECTED">Rejected</SelectItem>
-            <SelectItem value="ARCHIVED">Archived</SelectItem>
+            <SelectItem value="all">{t("allStatuses")}</SelectItem>
+            <SelectItem value="NEW">{tStatus("new")}</SelectItem>
+            <SelectItem value="UNDER_CONSIDERATION">{tStatus("underConsideration")}</SelectItem>
+            <SelectItem value="PLANNED">{tStatus("planned")}</SelectItem>
+            <SelectItem value="IN_PROGRESS">{tStatus("inProgress")}</SelectItem>
+            <SelectItem value="COMPLETED">{tStatus("completed")}</SelectItem>
+            <SelectItem value="REJECTED">{tStatus("rejected")}</SelectItem>
+            <SelectItem value="ARCHIVED">{tStatus("archived")}</SelectItem>
           </SelectContent>
         </Select>
       </div>
 
       {isLoading ? (
-        <div className="text-center py-12">Loading features...</div>
+        <div className="text-center py-12">{tCommon("loading")}</div>
       ) : filteredFeatures?.length === 0 ? (
         <div className="text-center py-12 text-gray-500">
-          No feature requests found
+          {t("noFeatures")}
         </div>
       ) : (
         <div className="space-y-4">
@@ -116,7 +121,7 @@ export default function FeaturesPage() {
                     <CardDescription>{feature.description}</CardDescription>
                     {feature.name && (
                       <p className="text-sm text-gray-500 mt-2">
-                        Submitted by: {feature.name} {feature.email && `(${feature.email})`}
+                        {t("submittedBy", { name: `${feature.name}${feature.email ? ` (${feature.email})` : ""}` })}
                       </p>
                     )}
                   </div>
@@ -126,7 +131,7 @@ export default function FeaturesPage() {
                 <div className="flex items-center gap-4">
                   <div className="flex-1 grid grid-cols-3 gap-4">
                     <div>
-                      <label className="text-xs text-gray-600 mb-1 block">Status</label>
+                      <label className="text-xs text-gray-600 mb-1 block">{t("status")}</label>
                       <Select
                         value={feature.status}
                         onValueChange={(value) =>
@@ -137,19 +142,19 @@ export default function FeaturesPage() {
                           <SelectValue />
                         </SelectTrigger>
                         <SelectContent>
-                          <SelectItem value="NEW">New</SelectItem>
-                          <SelectItem value="UNDER_CONSIDERATION">Under Consideration</SelectItem>
-                          <SelectItem value="PLANNED">Planned</SelectItem>
-                          <SelectItem value="IN_PROGRESS">In Progress</SelectItem>
-                          <SelectItem value="COMPLETED">Completed</SelectItem>
-                          <SelectItem value="REJECTED">Rejected</SelectItem>
-                          <SelectItem value="ARCHIVED">Archived</SelectItem>
+                          <SelectItem value="NEW">{tStatus("new")}</SelectItem>
+                          <SelectItem value="UNDER_CONSIDERATION">{tStatus("underConsideration")}</SelectItem>
+                          <SelectItem value="PLANNED">{tStatus("planned")}</SelectItem>
+                          <SelectItem value="IN_PROGRESS">{tStatus("inProgress")}</SelectItem>
+                          <SelectItem value="COMPLETED">{tStatus("completed")}</SelectItem>
+                          <SelectItem value="REJECTED">{tStatus("rejected")}</SelectItem>
+                          <SelectItem value="ARCHIVED">{tStatus("archived")}</SelectItem>
                         </SelectContent>
                       </Select>
                     </div>
 
                     <div>
-                      <label className="text-xs text-gray-600 mb-1 block">Priority</label>
+                      <label className="text-xs text-gray-600 mb-1 block">{t("priority")}</label>
                       <Select
                         value={feature.priority}
                         onValueChange={(value) =>
@@ -160,16 +165,16 @@ export default function FeaturesPage() {
                           <SelectValue />
                         </SelectTrigger>
                         <SelectContent>
-                          <SelectItem value="LOW">Low</SelectItem>
-                          <SelectItem value="MEDIUM">Medium</SelectItem>
-                          <SelectItem value="HIGH">High</SelectItem>
-                          <SelectItem value="URGENT">Urgent</SelectItem>
+                          <SelectItem value="LOW">{tPriority("low")}</SelectItem>
+                          <SelectItem value="MEDIUM">{tPriority("medium")}</SelectItem>
+                          <SelectItem value="HIGH">{tPriority("high")}</SelectItem>
+                          <SelectItem value="URGENT">{tPriority("urgent")}</SelectItem>
                         </SelectContent>
                       </Select>
                     </div>
 
                     <div>
-                      <label className="text-xs text-gray-600 mb-1 block">Project</label>
+                      <label className="text-xs text-gray-600 mb-1 block">{t("project")}</label>
                       <p className="text-sm font-medium truncate">{feature.project?.name}</p>
                     </div>
                   </div>

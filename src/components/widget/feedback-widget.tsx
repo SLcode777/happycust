@@ -65,11 +65,19 @@ export function FeedbackWidget({
     if (!embedded) return;
 
     const sendHeight = () => {
-      const container = document.getElementById("widget-container");
-      if (container) {
-        const height = Math.max(container.offsetHeight + 20, 400); // Minimum 400px
-        window.parent.postMessage({ type: "happycust-resize", height }, "*");
+      // Fixed height for menu, dynamic for forms
+      let height;
+      if (currentView === "menu") {
+        height = 380; // Fixed height for menu
+      } else {
+        const container = document.getElementById("widget-container");
+        if (container) {
+          height = Math.max(container.offsetHeight + 20, 400);
+        } else {
+          height = 500;
+        }
       }
+      window.parent.postMessage({ type: "happycust-resize", height }, "*");
     };
 
     // Send height multiple times to ensure it's captured
@@ -80,18 +88,20 @@ export function FeedbackWidget({
       setTimeout(sendHeight, 300),
     ];
 
-    // Also use ResizeObserver for dynamic changes
-    const container = document.getElementById("widget-container");
-    if (container) {
-      const observer = new ResizeObserver(() => {
-        sendHeight();
-      });
-      observer.observe(container);
+    // Also use ResizeObserver for dynamic changes (only for forms, not menu)
+    if (currentView !== "menu") {
+      const container = document.getElementById("widget-container");
+      if (container) {
+        const observer = new ResizeObserver(() => {
+          sendHeight();
+        });
+        observer.observe(container);
 
-      return () => {
-        observer.disconnect();
-        timers.forEach((t) => clearTimeout(t));
-      };
+        return () => {
+          observer.disconnect();
+          timers.forEach((t) => clearTimeout(t));
+        };
+      }
     }
 
     return () => {
@@ -101,12 +111,9 @@ export function FeedbackWidget({
 
   if (embedded) {
     return (
-      <div
-        id="widget-container"
-        className="w-full min-h-[400px] bg-white flex flex-col"
-      >
+      <div id="widget-container" className="w-full bg-white">
         <WidgetProvider config={{ projectId, hideBranding }}>
-          <div className="flex-1 px-4 pt-4">
+          <div className="px-4 pt-4">
             {currentView === "menu" && (
               <FeedbackMenu
                 onSelect={setCurrentView}
@@ -149,7 +156,7 @@ export function FeedbackWidget({
     <>
       <Button
         onClick={() => setIsOpen(true)}
-        className="fixed bottom-4 right-4 z-50 shadow-lg"
+        className="fixed bottom-4 right-4 z-50 shadow-lg bg-gradient-to-r from-yellow-400 to-orange-500 hover:from-yellow-500 hover:to-orange-600 text-black border-2"
         size="lg"
       >
         <MessageSquare className="mr-2 h-5 w-5" />

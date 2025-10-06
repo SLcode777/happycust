@@ -48,6 +48,8 @@
   const closeWidget = () => {
     isOpen = false;
     iframe.style.display = "none";
+    // Reset height for next opening
+    iframe.style.height = "500px";
     if (button) button.innerHTML = "💬";
   };
 
@@ -120,9 +122,12 @@
     }
     // Handle iframe height changes
     if (event.data.type === "happycust-resize" && event.data.height) {
-      const minHeight = 400;
+      const minHeight = 300;
       const maxHeight = window.innerHeight - 120;
-      const newHeight = Math.max(minHeight, Math.min(event.data.height, maxHeight));
+      const newHeight = Math.max(
+        minHeight,
+        Math.min(event.data.height, maxHeight)
+      );
       iframe.style.height = `${newHeight}px`;
     }
   });

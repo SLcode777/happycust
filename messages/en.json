@@ -154,6 +154,44 @@
       "medium": "Medium",
       "high": "High",
       "urgent": "Urgent"
+    },
+    "issues": {
+      "title": "Issues",
+      "description": "Manage bug reports from users",
+      "allStatuses": "All Statuses",
+      "status": "Status",
+      "priority": "Priority",
+      "project": "Project",
+      "reportedBy": "Reported by: {name}",
+      "noIssues": "No issues found",
+      "screenshot": "Screenshot",
+      "viewScreenshot": "View screenshot"
+    },
+    "reviews": {
+      "title": "Reviews",
+      "description": "Manage customer reviews",
+      "all": "All",
+      "published": "Published",
+      "unpublished": "Unpublished",
+      "noReviews": "No reviews found",
+      "anonymous": "Anonymous",
+      "marketingOk": "Marketing OK",
+      "social": "Social media",
+      "project": "Project",
+      "submitted": "Submitted",
+      "publishAction": "Publish",
+      "unpublishAction": "Unpublish"
+    },
+    "feedbacks": {
+      "title": "Feedbacks",
+      "description": "Manage customer feedbacks",
+      "allStatuses": "All Statuses",
+      "status": "Status",
+      "priority": "Priority",
+      "project": "Project",
+      "from": "From: {name}",
+      "noFeedbacks": "No feedbacks found",
+      "submitted": "Submitted"
     }
   },
   "common": {

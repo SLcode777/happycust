@@ -2,6 +2,7 @@
 
 import { useState } from "react"
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query"
+import { useTranslations } from "next-intl"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
@@ -24,6 +25,8 @@ async function togglePublish(id: string, isPublished: boolean) {
 }
 
 export default function ReviewsPage() {
+  const t = useTranslations("admin.reviews")
+  const tCommon = useTranslations("common")
   const queryClient = useQueryClient()
   const [filter, setFilter] = useState<"all" | "published" | "unpublished">("all")
 
@@ -50,35 +53,35 @@ export default function ReviewsPage() {
     <div>
       <div className="flex items-center justify-between mb-8">
         <div>
-          <h1 className="text-3xl font-bold">Reviews</h1>
-          <p className="text-gray-600 mt-2">Manage customer reviews</p>
+          <h1 className="text-3xl font-bold">{t("title")}</h1>
+          <p className="text-gray-600 mt-2">{t("description")}</p>
         </div>
         <div className="flex gap-2">
           <Button
             variant={filter === "all" ? "default" : "outline"}
             onClick={() => setFilter("all")}
           >
-            All
+            {t("all")}
           </Button>
           <Button
             variant={filter === "published" ? "default" : "outline"}
             onClick={() => setFilter("published")}
           >
-            Published
+            {t("published")}
           </Button>
           <Button
             variant={filter === "unpublished" ? "default" : "outline"}
             onClick={() => setFilter("unpublished")}
           >
-            Unpublished
+            {t("unpublished")}
           </Button>
         </div>
       </div>
 
       {isLoading ? (
-        <div className="text-center py-12">Loading reviews...</div>
+        <div className="text-center py-12">{tCommon("loading")}</div>
       ) : filteredReviews?.length === 0 ? (
-        <div className="text-center py-12 text-gray-500">No reviews found</div>
+        <div className="text-center py-12 text-gray-500">{t("noReviews")}</div>
       ) : (
         <div className="space-y-4">
           {filteredReviews?.map((review: any) => (
@@ -101,15 +104,15 @@ export default function ReviewsPage() {
                       </div>
                       <span className="text-sm font-medium">{review.rating}/5</span>
                     </div>
-                    <CardTitle className="text-lg">{review.name || "Anonymous"}</CardTitle>
+                    <CardTitle className="text-lg">{review.name || t("anonymous")}</CardTitle>
                     <CardDescription>{review.email}</CardDescription>
                   </div>
                   <div className="flex gap-2">
                     <Badge variant={review.isPublished ? "default" : "secondary"}>
-                      {review.isPublished ? "Published" : "Unpublished"}
+                      {review.isPublished ? t("published") : t("unpublished")}
                     </Badge>
                     {review.consentForMarketing && (
-                      <Badge variant="outline">Marketing OK</Badge>
+                      <Badge variant="outline">{t("marketingOk")}</Badge>
                     )}
                   </div>
                 </div>
@@ -119,15 +122,15 @@ export default function ReviewsPage() {
 
                 {review.socialMediaProfile && (
                   <p className="text-xs text-gray-500 mb-4">
-                    Social: {review.socialMediaProfile}
+                    {t("social")}: {review.socialMediaProfile}
                   </p>
                 )}
 
                 <div className="flex items-center justify-between">
                   <div className="text-xs text-gray-500">
-                    <p>Project: {review.project?.name}</p>
+                    <p>{t("project")}: {review.project?.name}</p>
                     <p>
-                      Submitted: {new Date(review.createdAt).toLocaleDateString()}
+                      {t("submitted")}: {new Date(review.createdAt).toLocaleDateString()}
                     </p>
                   </div>
 
@@ -141,7 +144,7 @@ export default function ReviewsPage() {
                     }
                     disabled={toggleMutation.isPending}
                   >
-                    {review.isPublished ? "Unpublish" : "Publish"}
+                    {review.isPublished ? t("unpublishAction") : t("publishAction")}
                   </Button>
                 </div>
               </CardContent>
